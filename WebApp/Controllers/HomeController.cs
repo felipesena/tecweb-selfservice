@@ -18,5 +18,10 @@ namespace WebApp.Controllers
         {
             return View("Login");
         }
+        [Route("cadastro")]
+        public IActionResult Cadastro()
+        {
+            return View("Cadastro");
+        }
     }
 }
