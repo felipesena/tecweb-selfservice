@@ -8,6 +8,11 @@ namespace WebApp.Controllers
 {
     public class HomeController : Controller
     {
+        [Route("")]
+        public IActionResult Home()
+        {
+            return RedirectToAction("index");
+        }
         [Route("home")]
         public IActionResult Index()
         {
