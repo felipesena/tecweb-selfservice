@@ -159,9 +159,12 @@ iframe {
 [ login ]*/
 
 .limiter {
-  width: 100%;
-  margin: 0 auto;
-  background-image: url("../img/res02.jpg");
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+    background-image: url("../img/res02.jpg");
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 .container-login100 {
