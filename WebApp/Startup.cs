@@ -36,7 +36,7 @@ namespace WebApp
             services.AddDbContext<AplicacaoDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")/*"DefaultConnection"*/));
 
-            
+            services.BuildServiceProvider().GetService<AplicacaoDbContext>().Database.Migrate();            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,13 +52,7 @@ namespace WebApp
             }
             app.UseStaticFiles();
             app.UseHttpsRedirection();
-            app.UseMvc();
-
-            using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            {
-                scope.ServiceProvider.GetRequiredService<AplicacaoDbContext>().Database.Migrate();
-            }
-
+            app.UseMvc();          
         }
     }
 }
