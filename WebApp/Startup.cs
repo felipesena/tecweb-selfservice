@@ -35,8 +35,9 @@ namespace WebApp
 
            
             services.AddDbContext<AplicacaoDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString(/*Environment.GetEnvironmentVariable("MyDbConnection")*/"DefaultConnection")));
-
+                options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection"));
+                                                     
+            services.BuildServiceProvider().GetService<AplicacaoDbContext>().Database.Migrate();
             
         }
 
@@ -50,11 +51,6 @@ namespace WebApp
             else
             {
                 app.UseHsts();
-            }
-
-            using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            {
-                scope.ServiceProvider.GetRequiredService<AplicacaoDbContext>().Database.Migrate();
             }
 
             app.UseStaticFiles();
