@@ -11,10 +11,7 @@ variables:
 
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
-
-steps:
 - script: dotnet ef migrations "MyInitial" -o "Migrations"
 - script: dotnet ef database update
-  displayName: 'dotnet migrations'
+  displayName: 'dotnet build $(buildConfiguration)'
   
