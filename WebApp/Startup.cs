@@ -20,7 +20,8 @@ namespace WebApp
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            
+
+            Setting.ConnectionString = Configuration.GetSection("ConnectionStrings:DefaultConnection").Value;
         }
 
         public IConfiguration Configuration { get; }
@@ -34,9 +35,9 @@ namespace WebApp
 
            
             services.AddDbContext<AplicacaoDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")/*"DefaultConnection"*/));
+                options.UseSqlServer(Configuration.GetConnectionString(/*Environment.GetEnvironmentVariable("MyDbConnection")*/"DefaultConnection")));
 
-            services.BuildServiceProvider().GetService<AplicacaoDbContext>().Database.Migrate();            
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,9 +51,16 @@ namespace WebApp
             {
                 app.UseHsts();
             }
+
+            using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                scope.ServiceProvider.GetRequiredService<AplicacaoDbContext>().Database.Migrate();
+            }
+
             app.UseStaticFiles();
             app.UseHttpsRedirection();
-            app.UseMvc();          
+            app.UseMvc();
+
         }
     }
 }
