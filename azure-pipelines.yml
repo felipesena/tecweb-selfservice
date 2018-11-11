@@ -8,12 +8,7 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  migrationConfiguration: 'WebApp'
-
+  
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
-- script: dotnet ef database update
-  workingDirectory: $(migrationConfiguration)            
-  displayName: 'dotnet database update $(migrationConfiguration)'
-  
