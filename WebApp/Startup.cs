@@ -34,7 +34,7 @@ namespace WebApp
 
            
             services.AddDbContext<AplicacaoDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")/*"DefaultConnection"*/)));
+                options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")/*"DefaultConnection"*/));
 
             
         }
