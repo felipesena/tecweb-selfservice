@@ -12,6 +12,7 @@ variables:
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
 - script: cd WebApp
+          dotnet ef migrations add "MyInitial" -o "Model\Migrations"
           dotnet ef database update
   displayName: 'dotnet build $(buildConfiguration)'
   
