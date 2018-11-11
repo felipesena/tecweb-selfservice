@@ -8,10 +8,13 @@ namespace WebApp.Model
 {
     public class Categoria
     {
+
         [Key]
         [Required]
         public int CategoriaId { get; set; }
         [Required]
         public string Descricao { get; set; }
+
+        public ICollection<Comida> Comidas { get; set; }
     }
 }

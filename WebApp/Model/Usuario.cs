@@ -17,5 +17,8 @@ namespace WebApp.Model
         public string Email { get; set; }
         [Required]
         public string Senha { get; set; }
+        [Required]
+        public string Perfil { get; set; }
+        public string Provedor { get; set; }
     }
 }

@@ -18,14 +18,23 @@ namespace WebApp.Model
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Usuario>().ToTable("Usuarios");
-            modelBuilder.Entity<Usuario>().Property(i => i.UsuarioId).ValueGeneratedOnAdd();
-
             modelBuilder.Entity<Comida>().ToTable("Comidas");
-            modelBuilder.Entity<Comida>().Property(i => i.ComidaId).ValueGeneratedOnAdd();            
+            modelBuilder.Entity<Comida>().Property(i => i.ComidaId).ValueGeneratedOnAdd();
+            modelBuilder.Entity<Comida>().HasKey(i => i.ComidaId);
+            modelBuilder.Entity<Comida>().HasOne(i => i.Categoria).WithMany(c => c.Comidas);
 
             modelBuilder.Entity<Categoria>().ToTable("Categorias");
-            modelBuilder.Entity<Categoria>().Property(i => i.CategoriaId).ValueGeneratedOnAdd();            
+            modelBuilder.Entity<Categoria>().Property(i => i.CategoriaId).ValueGeneratedOnAdd();
+            modelBuilder.Entity<Categoria>().HasKey(i => i.CategoriaId);
+            modelBuilder.Entity<Categoria>().HasMany(i => i.Comidas).WithOne(c => c.Categoria);
+
+            modelBuilder.Entity<Usuario>().Property(i => i.UsuarioId).ValueGeneratedOnAdd();
+            modelBuilder.Entity<Usuario>().HasKey(i => i.UsuarioId);
         }
+
+        public DbSet<Comida> Comidas { get; set; }
+        public DbSet<Categoria> Categorias { get; set; }
+
+        public DbSet<Usuario> Usuarios { get; set; }
     }
 }
