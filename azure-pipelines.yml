@@ -8,11 +8,15 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
+  migrationConfiguration: 'WebApp'
 
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
-- script: cd WebApp
-          dotnet ef migrations add "MyInitial" -o "Model\Migrations"
-          dotnet ef database update
   displayName: 'dotnet build $(buildConfiguration)'
+- script: dotnet ef migrations add "MyInitial" -o "Model\Migrations"
+  workingDirectory: $(migrationConfiguration)
+  displayName: 'dotnet migrations $(migrationConfiguration)'
+- script: dotnet ef database update
+  workingDirectory: $(migrationConfiguration)            
+  displayName: 'dotnet database update $(migrationConfiguration)'
   
