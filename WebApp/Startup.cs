@@ -52,10 +52,10 @@ namespace WebApp
                 app.UseHsts();
             }
 
-            using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            {
-                scope.ServiceProvider.GetRequiredService<AplicacaoDbContext>().Database.Migrate();
-            }
+            //using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            //{
+            //    scope.ServiceProvider.GetRequiredService<AplicacaoDbContext>().Database.Migrate();
+            //}
 
             app.UseStaticFiles();
             app.UseHttpsRedirection();
