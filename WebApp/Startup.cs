@@ -35,7 +35,7 @@ namespace WebApp
 
            
             services.AddDbContext<AplicacaoDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("AzureConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
 
             
         }
