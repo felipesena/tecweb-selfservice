@@ -35,7 +35,7 @@ namespace WebApp
 
            
             services.AddDbContext<AplicacaoDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection"));
+                options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
                                                      
             services.BuildServiceProvider().GetService<AplicacaoDbContext>().Database.Migrate();
             
