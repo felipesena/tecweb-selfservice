@@ -11,11 +11,9 @@ namespace WebApp.Model
     {
 
         [Key]
-        [Required]
-        [JsonProperty(PropertyName ="id")]
+        [Required]        
         public int CategoriaId { get; set; }
-        [Required]
-        [JsonProperty(PropertyName = "category")]
+        [Required]        
         public string Descricao { get; set; }
 
         public ICollection<Comida> Comidas { get; set; }

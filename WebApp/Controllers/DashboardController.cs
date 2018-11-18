@@ -28,13 +28,19 @@ namespace WebApp.Controllers
                 {
                     var json = a.ReadToEnd();
 
-                    List<Categoria> categorias = JsonConvert.DeserializeObject<List<Categoria>>(json);                    
+                    dynamic categories = JsonConvert.DeserializeObject<List<Categoria>>(json);
 
-                    foreach (var categoria in categorias)
+                    Categoria c;
+
+                    foreach (var category in categories)
                     {
-                        context.Categorias.Add(categoria);                        
-                    }
+                        c = new Categoria
+                        {
+                            Descricao = category.category.Value
+                        };
 
+                        context.Categorias.Add(c);
+                    }
                     context.SaveChanges();
                 }
             }
