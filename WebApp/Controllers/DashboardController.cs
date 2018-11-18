@@ -28,7 +28,7 @@ namespace WebApp.Controllers
                 {
                     var json = a.ReadToEnd();
 
-                    dynamic categories = JsonConvert.DeserializeObject<List<Categoria>>(json);
+                    dynamic categories = JsonConvert.DeserializeObject(json);
 
                     Categoria c;
 
