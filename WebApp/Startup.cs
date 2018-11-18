@@ -35,7 +35,7 @@ namespace WebApp
 
            
             services.AddDbContext<AplicacaoDbContext>(options =>
-                options.UseSqlServer(Enviroment.GetEnvironment("SQLCONNSTR_MyDbConnection")));
+                options.UseSqlServer(Environment.GetEnvironment("SQLCONNSTR_MyDbConnection")));
 
             
         }
