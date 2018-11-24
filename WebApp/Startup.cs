@@ -33,9 +33,11 @@ namespace WebApp
 
             services.AddEntityFrameworkSqlServer();
 
-           
+
+            //services.AddDbContext<AplicacaoDbContext>(options =>
+            //    options.UseSqlServer(Environment.GetEnvironmentVariable("SQLCONNSTR_MyDbConnection")));
             services.AddDbContext<AplicacaoDbContext>(options =>
-                options.UseSqlServer(Environment.GetEnvironmentVariable("SQLCONNSTR_MyDbConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
 
             services.BuildServiceProvider().GetService<AplicacaoDbContext>().Database.Migrate();
             
