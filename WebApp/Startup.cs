@@ -21,7 +21,7 @@ namespace WebApp
         {
             Configuration = configuration;
 
-            Setting.ConnectionString = Configuration.GetSection("ConnectionStrings:DefaultConnection").Value;
+            Setting.ConnectionString = Configuration.GetSection("ConnectionStrings:MyDbConnection").Value;
         }
 
         public IConfiguration Configuration { get; }
