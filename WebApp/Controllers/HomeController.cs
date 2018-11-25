@@ -25,7 +25,8 @@ namespace WebApp.Controllers
         [Route("login")]
         public IActionResult Login()
         {
-            HttpContext.Session.SetString("signInWarning", null);
+
+            HttpContext.Session.Remove("signInWarning");
             
             return View("Login");
         }
