@@ -50,6 +50,6 @@ namespace WebApp.Model
         [ForeignKey("CategoriaId")]
         public virtual Categoria Categoria { get; set; }
 
-
+        public virtual ICollection<AlimentoPrato> Pratos { get; set; }
     }
 }

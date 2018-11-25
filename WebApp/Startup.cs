@@ -64,6 +64,7 @@ namespace WebApp
                 app.UseHsts();
             }
 
+            app.UseStaticFiles();
             //using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             //{
             //    scope.ServiceProvider.GetRequiredService<AplicacaoDbContext>().Database.Migrate();
@@ -76,7 +77,7 @@ namespace WebApp
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "ApiAlimentos V1");
             });
 
-            app.UseStaticFiles();
+            
             app.UseHttpsRedirection();
             app.UseSession();
             app.UseMvc();

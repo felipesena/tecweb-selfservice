@@ -20,5 +20,8 @@ namespace WebApp.Model
         [Required]
         public string Perfil { get; set; }
         public string Provedor { get; set; }
+
+        public virtual ICollection<Prato> Pratos { get; set; }
+        public virtual ICollection<HistoricoConsumo> Consumos { get; set; }
     }
 }

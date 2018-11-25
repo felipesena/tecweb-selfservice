@@ -3,21 +3,44 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApp.Model;
 
 namespace WebApp.Model.Migrations
 {
     [DbContext(typeof(AplicacaoDbContext))]
-    partial class AplicacaoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181125163606_Table Historico, Prato, AlimentoPrato3")]
+    partial class TableHistoricoPratoAlimentoPrato3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("WebApp.Model.AlimentoPrato", b =>
+                {
+                    b.Property<int>("AlimentoPratoId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("ComidaId")
+                        .IsRequired();
+
+                    b.Property<int?>("PratoId")
+                        .IsRequired();
+
+                    b.HasKey("AlimentoPratoId");
+
+                    b.HasIndex("ComidaId");
+
+                    b.HasIndex("PratoId");
+
+                    b.ToTable("AlimentoPratos");
+                });
 
             modelBuilder.Entity("WebApp.Model.Categoria", b =>
                 {
@@ -92,6 +115,51 @@ namespace WebApp.Model.Migrations
                     b.ToTable("Comidas");
                 });
 
+            modelBuilder.Entity("WebApp.Model.HistoricoConsumo", b =>
+                {
+                    b.Property<int>("HistoricoConsumoId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("PratoId")
+                        .IsRequired();
+
+                    b.Property<int?>("UsuarioId")
+                        .IsRequired();
+
+                    b.HasKey("HistoricoConsumoId");
+
+                    b.HasIndex("PratoId");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("HistoricoConsumos");
+                });
+
+            modelBuilder.Entity("WebApp.Model.Prato", b =>
+                {
+                    b.Property<int>("PratoId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CategoriaId")
+                        .IsRequired();
+
+                    b.Property<string>("NomePrato")
+                        .IsRequired();
+
+                    b.Property<int?>("UsuarioId")
+                        .IsRequired();
+
+                    b.HasKey("PratoId");
+
+                    b.HasIndex("CategoriaId");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("Pratos");
+                });
+
             modelBuilder.Entity("WebApp.Model.Usuario", b =>
                 {
                     b.Property<int>("UsuarioId")
@@ -117,11 +185,50 @@ namespace WebApp.Model.Migrations
                     b.ToTable("Usuarios");
                 });
 
+            modelBuilder.Entity("WebApp.Model.AlimentoPrato", b =>
+                {
+                    b.HasOne("WebApp.Model.Comida", "Comida")
+                        .WithMany("Pratos")
+                        .HasForeignKey("ComidaId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("WebApp.Model.Prato", "Prato")
+                        .WithMany("Alimentos")
+                        .HasForeignKey("PratoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("WebApp.Model.Comida", b =>
                 {
                     b.HasOne("WebApp.Model.Categoria", "Categoria")
                         .WithMany("Comidas")
                         .HasForeignKey("CategoriaId");
+                });
+
+            modelBuilder.Entity("WebApp.Model.HistoricoConsumo", b =>
+                {
+                    b.HasOne("WebApp.Model.Prato", "Prato")
+                        .WithMany()
+                        .HasForeignKey("PratoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("WebApp.Model.Usuario", "Usuario")
+                        .WithMany("Consumos")
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("WebApp.Model.Prato", b =>
+                {
+                    b.HasOne("WebApp.Model.Categoria", "Categoria")
+                        .WithMany("Pratos")
+                        .HasForeignKey("CategoriaId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("WebApp.Model.Usuario", "Usuario")
+                        .WithMany("Pratos")
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

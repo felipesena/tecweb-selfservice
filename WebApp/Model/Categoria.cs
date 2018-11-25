@@ -17,5 +17,7 @@ namespace WebApp.Model
         public string Descricao { get; set; }
 
         public ICollection<Comida> Comidas { get; set; }
+
+        public ICollection<Prato> Pratos { get; set; }
     }
 }
