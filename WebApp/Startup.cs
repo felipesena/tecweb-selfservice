@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
@@ -52,7 +53,12 @@ namespace WebApp
                 c.SwaggerDoc("v1", new Info { Title = "APIAlimentos", Version = "v1" });
             });
 
-            services.AddAuthentication().AddGoogle(googleOptions =>
+            services.AddIdentity<IdentityUser, IdentityRole>();
+
+            services.AddAuthentication(v => {
+                v.DefaultAuthenticateScheme = GoogleDefaults.AuthenticationScheme;
+                v.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+            }).AddGoogle(googleOptions =>
             {
                 googleOptions.ClientId = "255707700770-8ig9p1a3kqasls6t93sr344tig3qk3ql.apps.googleusercontent.com";
                 googleOptions.ClientSecret = "1TpS0IMu-TPo4yxywxci9UUQ";

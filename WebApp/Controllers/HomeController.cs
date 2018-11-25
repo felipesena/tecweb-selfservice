@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApp.Model;
@@ -81,6 +82,13 @@ namespace WebApp.Controllers
                     }
                 }
             }
+        }
+
+        [HttpGet]
+        [Route("loginGoogle")]
+        public IActionResult LoginGoogle(string returnUrl = "/dashboard")
+        {
+            return Challenge(new AuthenticationProperties() { RedirectUri = returnUrl });
         }
 
         [Route("signin")]
