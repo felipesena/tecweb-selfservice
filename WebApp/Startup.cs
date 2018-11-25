@@ -76,7 +76,7 @@ namespace WebApp
             //{
             //    scope.ServiceProvider.GetRequiredService<AplicacaoDbContext>().Database.Migrate();
             //}
-
+            
             app.UseSwagger();
             app.UseCookiePolicy();
             app.UseAuthentication();

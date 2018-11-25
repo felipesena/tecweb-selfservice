@@ -3,7 +3,8 @@
 
 @{
     Layout = "_Layout";
-    ViewData["Title"] = "Self Service - Dashboard";
+    ViewData["Title"] = "Self Service - Refeições";
+    
 }
 
 @section Styles{
@@ -59,19 +60,90 @@
     </div><!-- /.container-fluid -->
 </nav>
 
-@*<div class="container-fluid" style="height:300px">
-        <h1>AQUI SERÁ O CONTEÚDO</h1>
-        <form action="dashboard/coletaAPICategory" method="post" enctype="multipart/form-data">
-            <input type="file" name="arquivo" />
-            <button type="submit" id="pegaApi">Coletar dados da API Category</button>
-        </form>
+<div class="container">
+    <h2>Refeições</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome do Prato</th>
+                <th scope="col">Quantidade(g)</th>
+                <th scope="col">Calorias</th>
+                <th scope="col">Fibra(g)</th>
+                <th scope="col">Ferro(mg)</th>
+                <th scope="col">Potassio(mg)</th>
+                <th scope="col">Zinco(mg)</th>
+                <th scope="col">Carboidrato(g)</th>
+                <th scope="col">Fosforo(mg)</th>
+                <th scope="col">Sodio</th>
+                <th scope="col">Proteína(g)</th>
+                <th scope="col">Lipídio(g)</th>
+                <th scope="col">Categoria</th>
 
-        <form action="dashboard/coletaAPIFood" method="post" enctype="multipart/form-data">
-            <input type="file" name="arquivo" />
-            <button type="submit" id="pegaApi">Coletar dados da API Food</button>
-        </form>
+            </tr>
+        </thead>
+        <tbody id="alimentos">
+            @foreach (var prato in ViewBag.Pratos)
+            {
+                var alimentos = prato.Alimentos;
+                var somaQuantidade = 0;
+                var somaCalorias = 0;
+                var somaFibra = 0;
+                var somaFerro = 0;
+                var somaPotassio = 0;
+                var somaZinco = 0;
+                var somaCarboidrato = 0;
+                var somaFosforo = 0;
+                var somaSodio = 0;
+                var somaProteina = 0;
+                var somaLipidio = 0;
+                foreach (var alimento in alimentos)
+                {
+                    somaQuantidade += alimento.Comida.QuantidadeBase;
+                    somaCalorias += alimento.Comida.QuantidadeCalorias;
+                    somaFibra += alimento.Comida.QuantidadeFibra;
+                    somaFerro += alimento.Comida.QuantidadeFerro;
+                    somaPotassio += alimento.Comida.QuantidadePotassio;
+                    somaZinco += alimento.Comida.QuantidadeZinco;
+                    somaCarboidrato += alimento.Comida.QuantidadeCarboidrato;
+                    somaFosforo += alimento.Comida.QuantidadeFosforo;
+                    somaSodio += alimento.Comida.QuantidadeSodio;
+                    somaProteina += alimento.Comida.QuantidadeProteina;
+                    somaLipidio += alimento.Comida.QuantidadeLipidio;
+                }
 
-    </div>*@
+                <tr>
+                    <td>@prato.PratoId</td>
+                    <td>@prato.NomePrato</td>
+                    <td>@somaQuantidade</td>
+                    <td>@string.Format("{0:0.00}", somaCalorias)</td>
+                    <td>@string.Format("{0:0.00}", somaFibra)</td>
+                    <td>@string.Format("{0:0.00}", somaFerro)</td>
+                    <td>@string.Format("{0:0.00}", somaPotassio)</td>
+                    <td>@string.Format("{0:0.00}", somaZinco)</td>
+                    <td>@string.Format("{0:0.00}", somaCarboidrato)</td>
+                    <td>@string.Format("{0:0.00}", somaFosforo)</td>
+                    <td>@string.Format("{0:0.00}", somaSodio)</td>
+                    <td>@string.Format("{0:0.00}", somaProteina)</td>
+                    <td>@string.Format("{0:0.00}", somaLipidio)</td>
+                    @if (prato.Categoria != null)
+                    {
+                        <td>
+                            @prato.Categoria.Nome
+                        </td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+</div>
 
 
 @section Scripts{

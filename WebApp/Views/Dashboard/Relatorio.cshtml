@@ -3,7 +3,7 @@
 
 @{
     Layout = "_Layout";
-    ViewData["Title"] = "Self Service - Dashboard";
+    ViewData["Title"] = "Self Service - Relatório";
 }
 
 @section Styles{
@@ -59,19 +59,53 @@
     </div><!-- /.container-fluid -->
 </nav>
 
-@*<div class="container-fluid" style="height:300px">
-        <h1>AQUI SERÁ O CONTEÚDO</h1>
-        <form action="dashboard/coletaAPICategory" method="post" enctype="multipart/form-data">
-            <input type="file" name="arquivo" />
-            <button type="submit" id="pegaApi">Coletar dados da API Category</button>
-        </form>
+<div class="container">
+    <h2>Relatório de Consumo - @HttpContextAccessor.HttpContext.Session.GetString("userName")</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome do Prato</th>
+                <th scope="col">Quantidade(g)</th>
+                <th scope="col">Calorias</th>
+                <th scope="col">Categoria</th>
 
-        <form action="dashboard/coletaAPIFood" method="post" enctype="multipart/form-data">
-            <input type="file" name="arquivo" />
-            <button type="submit" id="pegaApi">Coletar dados da API Food</button>
-        </form>
+            </tr>
+        </thead>
+        <tbody id="alimentos">
+            @foreach (var prato in ViewBag.Pratos)
+            {
+                var somaCalorias = 0;
+                var somaQuantidade = 0;
+                var alimentos = prato.Alimentos;
+                foreach (var alimento in alimentos)
+                {
+                    somaCalorias += alimento.Comida.QuantidadeCalorias;
+                    somaQuantidade += alimento.Comida.QuantidadeBase;
+                }
+                <tr>
+                    <td>@prato.PratoId</td>
+                    <td>@prato.NomePrato</td>
+                    <td>@somaQuantidade</td>
+                    <td>@string.Format("{0:0.00}", somaCalorias)</td>
+                    
+                    @if (prato.Categoria != null)
+                    {
+                        <td>
+                            @prato.Categoria.Nome
+                        </td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
 
-    </div>*@
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
 
 
 @section Scripts{

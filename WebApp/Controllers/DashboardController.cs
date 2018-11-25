@@ -33,6 +33,56 @@ namespace WebApp.Controllers
             HttpContext.Session.Remove("userEmail");
             return RedirectToAction("Index", "Home");
         }
+        [Route("CalculoBasal")]
+        public IActionResult CalculoBasal()
+        {
+            return View();
+        }
+        [Route("Relatorio")]
+        public IActionResult Relatorio()
+        {
+            using (var context = new AplicacaoDbContext())
+            {
+                var pratos = context.Pratos.Where(p => p.Usuario.Email == HttpContext.Session.GetString("userEmail")).ToList();
+                ViewBag.Pratos = pratos;
+                return View();
+            }
+        }
+        [Route("Refeicao")]
+        public IActionResult Refeicao()
+        {
+            using(var context = new AplicacaoDbContext())
+            {
+                var pratos = context.Pratos.ToList();
+                ViewBag.Pratos = pratos;
+                return View();
+            }
+            
+        }
+        [Route("Dietas")]
+        public IActionResult Dietas()
+        {
+            using(var context = new AplicacaoDbContext())
+            {
+                var categorias = context.Categorias.ToList();
+                var pratos = context.Categorias.ToList();
+                ViewBag.Categorias = categorias;
+                ViewBag.Pratos = pratos;
+                return View();
+            }
+            
+        }
+        [Route("TabelaNutricional")]
+        public IActionResult TabelaNutricional()
+        {
+            using(var context = new AplicacaoDbContext())
+            {
+                var comidas = context.Comidas.ToList();
+                ViewBag.Comidas = comidas;
+                return View();
+            }
+            
+        }
         [Route("dashboard/coletaAPICategory")]
         public IActionResult ColetaAPICategory(IFormFile arquivo)
         {

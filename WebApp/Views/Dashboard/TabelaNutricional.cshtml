@@ -1,0 +1,161 @@
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor;
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Self Service - Tabela Nutricional";
+}
+
+@section Styles{
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Satisfy|Bree+Serif|Candal|PT+Sans">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+
+}
+<nav class="navbar navbar-default navbar-inverse">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Menu</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Painel de controle<span class="sr-only">(current)</span></a></li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Funcionalidades <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/Dietas">Dietas por grupos</a></li>
+                        <li><a href="/TabelaNutricional">Tabela nutricional</a></li>
+                        <li><a href="/Relatorio">Relatório de consumo</a></li>
+                        <li><a href="/CalculoBasal">Cálculo basal</a></li>
+                        <li><a href="/Refeicao">Buscar refeição</a></li>
+                        @*<li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">One more separated link</a></li>*@
+                    </ul>
+                </li>
+                <li>
+                    <a href="/logout">Logout</a>
+                </li>
+            </ul>
+            <form class="navbar-form navbar-right">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Pesquisar">
+                </div>
+                <button type="submit" class="btn btn-default">Enviar</button>
+            </form>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<div class="container-fluid">
+    <h2>Tabela Nutricional</h2>
+    @*<button class="btn btn-secondary" id="carregaTabela">Carregar Tabela</button>*@
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Descrição</th>
+                <th scope="col">Quantidade(g)</th>
+                <th scope="col">Calorias</th>
+                <th scope="col">Fibra(g)</th>
+                <th scope="col">Ferro(mg)</th>
+                <th scope="col">Potassio(mg)</th>
+                <th scope="col">Zinco(mg)</th>
+                <th scope="col">Carboidrato(g)</th>
+                <th scope="col">Fosforo(mg)</th>
+                <th scope="col">Sodio</th>
+                <th scope="col">Proteína(g)</th>
+                <th scope="col">Lipídio(g)</th>
+                <th scope="col">Categoria</th>
+
+            </tr>
+        </thead>
+        <tbody id="alimentos">
+            @foreach (var comida in ViewBag.Comidas)
+            {
+            <tr>
+                <td>@comida.ComidaId</td>
+                <td>@comida.Descricao</td>
+                <td>@comida.QuantidadeBase</td>
+                <td>@string.Format("{0:0.00}", comida.QuantidadeCalorias)</td>
+                <td>@string.Format("{0:0.00}", comida.QuantidadeFibra)</td>
+                <td>@string.Format("{0:0.00}", comida.QuantidadeFerro)</td>
+                <td>@string.Format("{0:0.00}", comida.QuantidadePotassio)</td>
+                <td>@string.Format("{0:0.00}", comida.QuantidadeZinco)</td>
+                <td>@string.Format("{0:0.00}", comida.QuantidadeCarboidrato)</td>
+                <td>@string.Format("{0:0.00}", comida.QuantidadeFosforo)</td>
+                <td>@string.Format("{0:0.00}", comida.QuantidadeSodio)</td>
+                <td>@string.Format("{0:0.00}", comida.QuantidadeProteina)</td>
+                <td>@string.Format("{0:0.00}", comida.QuantidadeLipidio)</td>
+                @if (comida.Categoria != null)
+                {
+                    <td>
+                        @comida.Categoria.Nome
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        
+                    </td>
+                }
+
+            </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+
+@section Scripts{
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        $('#carregaTabela').click(function () {
+            $.ajax({
+                method: "GET",
+                url: "https://localhost:44398/api/comidas",
+                success: function (data) {
+                    for (i = 0; i < data.length; i++) {
+                        $('#alimentos').append(`<tr>
+                            <td>${data[i].comidaId}</td>
+                            <td>${data[i].descricao}</td>
+                            <td>${data[i].quantidadeBase}</td>
+                            <td>${data[i].quantidadeCalorias}</td>
+                            <td>${data[i].quantidadeFibra}</td>
+                            <td>${data[i].quantidadeFerro}</td>
+                            <td>${data[i].quantidadePotassio}</td>
+                            <td>${data[i].quantidadeZinco}</td>
+                            <td>${data[i].quantidadeCarboidrato}</td>
+                            <td>${data[i].quantidadeFosforo}</td>
+                            <td>${data[i].quantidadeSodio}</td>
+                            <td>${data[i].quantidadeProteina}</td>
+                            <td>${data[i].quantidadeLipidio}</td>
+                            <td>${data[i].categoria}</td></tr>
+                            `);
+                    }
+                },
+                error: function () {
+                    alert("fail");
+                }
+            });
+            $("#carregaTabela").hide();
+        });
+    </script>
+
+}

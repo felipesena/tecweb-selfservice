@@ -3,7 +3,7 @@
 
 @{
     Layout = "_Layout";
-    ViewData["Title"] = "Self Service - Dashboard";
+    ViewData["Title"] = "Self Service - Cálculo Basal";
 }
 
 @section Styles{
@@ -59,19 +59,12 @@
     </div><!-- /.container-fluid -->
 </nav>
 
-@*<div class="container-fluid" style="height:300px">
-        <h1>AQUI SERÁ O CONTEÚDO</h1>
-        <form action="dashboard/coletaAPICategory" method="post" enctype="multipart/form-data">
-            <input type="file" name="arquivo" />
-            <button type="submit" id="pegaApi">Coletar dados da API Category</button>
-        </form>
+<div class="container">
+    <h2>Cálculo Basal</h2>
 
-        <form action="dashboard/coletaAPIFood" method="post" enctype="multipart/form-data">
-            <input type="file" name="arquivo" />
-            <button type="submit" id="pegaApi">Coletar dados da API Food</button>
-        </form>
+    <iframe src="https://pt.calcuworld.com/nutricao/taxa-de-metabolismo-basal-metodo-harris-benedict/?iframe=1" width="100%" height="400"></iframe>
 
-    </div>*@
+</div>
 
 
 @section Scripts{
