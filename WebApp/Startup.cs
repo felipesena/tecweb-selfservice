@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -50,6 +51,12 @@ namespace WebApp
             {
                 c.SwaggerDoc("v1", new Info { Title = "APIAlimentos", Version = "v1" });
             });
+
+            services.AddAuthentication().AddGoogle(googleOptions =>
+            {
+                googleOptions.ClientId = "255707700770-8ig9p1a3kqasls6t93sr344tig3qk3ql.apps.googleusercontent.com";
+                googleOptions.ClientSecret = "1TpS0IMu-TPo4yxywxci9UUQ";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,6 +78,8 @@ namespace WebApp
             //}
 
             app.UseSwagger();
+            app.UseCookiePolicy();
+            app.UseAuthentication();
 
             app.UseSwaggerUI(c =>
             {
