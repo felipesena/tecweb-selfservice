@@ -1,4 +1,7 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor;
+
+@{
     Layout = "_Layout";
     ViewData["Title"] = "Self Service - Dashboard";
 }
@@ -42,6 +45,9 @@
                             <li><a href="#">One more separated link</a></li>*@
                     </ul>
                 </li>
+                <li>
+                    <a href="/logout">Logout</a>
+                </li>
             </ul>
             <form class="navbar-form navbar-right">
                 <div class="form-group">
@@ -54,18 +60,18 @@
 </nav>
 
 @*<div class="container-fluid" style="height:300px">
-    <h1>AQUI SERÁ O CONTEÚDO</h1>
-    <form action="dashboard/coletaAPICategory" method="post" enctype="multipart/form-data">
-        <input type="file" name="arquivo" />
-        <button type="submit" id="pegaApi">Coletar dados da API Category</button>
-    </form>
+        <h1>AQUI SERÁ O CONTEÚDO</h1>
+        <form action="dashboard/coletaAPICategory" method="post" enctype="multipart/form-data">
+            <input type="file" name="arquivo" />
+            <button type="submit" id="pegaApi">Coletar dados da API Category</button>
+        </form>
 
-    <form action="dashboard/coletaAPIFood" method="post" enctype="multipart/form-data">
-        <input type="file" name="arquivo" />
-        <button type="submit" id="pegaApi">Coletar dados da API Food</button>
-    </form>
+        <form action="dashboard/coletaAPIFood" method="post" enctype="multipart/form-data">
+            <input type="file" name="arquivo" />
+            <button type="submit" id="pegaApi">Coletar dados da API Food</button>
+        </form>
 
-</div>*@
+    </div>*@
 
 
 @section Scripts{

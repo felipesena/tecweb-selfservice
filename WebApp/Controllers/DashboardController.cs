@@ -16,7 +16,22 @@ namespace WebApp.Controllers
         [Route("dashboard")]
         public IActionResult Index()
         {
-            return View();
+            if (HttpContext.Session.GetString("userPerfil") != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        [Route("logout")]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Remove("userName");
+            HttpContext.Session.Remove("userPerfil");
+            HttpContext.Session.Remove("userEmail");
+            return RedirectToAction("Index", "Home");
         }
         [Route("dashboard/coletaAPICategory")]
         public IActionResult ColetaAPICategory(IFormFile arquivo)
