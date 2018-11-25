@@ -87,7 +87,7 @@ namespace WebApp.Controllers
         [HttpGet]
         [Route("loginGoogle")]
         public IActionResult LoginGoogle(string returnUrl = "/dashboard")
-        {
+        {                      
             return Challenge(new AuthenticationProperties() { RedirectUri = returnUrl });
         }
 

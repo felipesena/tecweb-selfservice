@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using WebApp.Model;
@@ -20,11 +21,54 @@ namespace WebApp.Controllers
             {
                 return View();
             }
+            else if (User.Identity.IsAuthenticated)
+            {
+                CreateUser();
+                return View();
+            }
             else
             {
                 return RedirectToAction("Index", "Home");
             }
+        }       
+
+        public void CreateUser()
+        {
+            using (var context = new AplicacaoDbContext())
+            {
+                var users = context.Usuarios.ToList();
+                string userEmail = User.FindFirst(c => c.Type.Contains("email")).Value;
+                var exist = users.Exists(u => u.Email == userEmail);
+
+                if (exist)
+                {
+                    var user = users.Find(u => u.Email == userEmail);
+
+                    HttpContext.Session.SetString("userName", user.Nome);
+                    HttpContext.Session.SetString("userPerfil", user.Perfil);
+                    HttpContext.Session.SetString("userEmail", user.Email);
+                }
+                else
+                {                    
+                    Usuario usuario = new Usuario()
+                    {
+                        Nome = User.Identity.Name,
+                        Perfil = "Usuário",
+                        Email = userEmail,
+                        Senha = "",
+                        Provedor = "Google"
+                    };
+
+                    HttpContext.Session.SetString("userName", usuario.Nome);
+                    HttpContext.Session.SetString("userPerfil", usuario.Perfil);
+                    HttpContext.Session.SetString("userEmail", usuario.Email);
+
+                    context.Usuarios.Add(usuario);
+                    context.SaveChanges();
+                }
+            }
         }
+
         [Route("logout")]
         public IActionResult Logout()
         {
