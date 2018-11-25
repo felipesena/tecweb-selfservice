@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.Swagger;
 using WebApp.Model;
 
 namespace WebApp
@@ -44,7 +45,11 @@ namespace WebApp
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.BuildServiceProvider().GetService<AplicacaoDbContext>().Database.Migrate();
-            
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "APIAlimentos", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,11 +69,17 @@ namespace WebApp
             //    scope.ServiceProvider.GetRequiredService<AplicacaoDbContext>().Database.Migrate();
             //}
 
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "ApiAlimentos V1");
+            });
+
             app.UseStaticFiles();
             app.UseHttpsRedirection();
             app.UseSession();
             app.UseMvc();
-
         }
     }
 }
