@@ -1,0 +1,128 @@
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor;
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Self Service - Adicionar Alimento";
+}
+
+@section Styles{
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Satisfy|Bree+Serif|Candal|PT+Sans">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+}
+<nav class="navbar navbar-default navbar-inverse">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Menu</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Painel de controle<span class="sr-only">(current)</span></a></li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Funcionalidades <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/Alimento">Adicionar alimento</a></li>
+                        <li><a href="/TabelaNutricional">Tabela nutricional</a></li>
+                        <li><a href="/Relatorio">Relatório de consumo</a></li>
+                        <li><a href="/CalculoBasal">Cálculo basal</a></li>
+                        <li><a href="/Refeicao">Buscar refeição</a></li>
+                        @*<li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">One more separated link</a></li>*@
+                    </ul>
+                </li>
+                <li>
+                    <a href="/logout">Logout</a>
+                </li>
+            </ul>
+            <form class="navbar-form navbar-right">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Pesquisar">
+                </div>
+                <button type="submit" class="btn btn-default">Enviar</button>
+            </form>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<div class="container">
+    <h2>Adicionar Alimento</h2>
+
+    <form method="post" action="/addAlimento">
+        <div class="form-group">
+            @Html.AntiForgeryToken()
+            <label for="descricao">Descrição</label>
+            <input type="text" required class="form-control" name="descricao" id="descricao" placeholder="Descrição">
+        </div>
+        <div class="form-group">
+            <label for="quantidadeBase">Quantidade Base</label>
+            <input type="text" required class="form-control" name="quantidadeBase" id="quantidadeBase" placeholder="Quantidade Base">
+        </div>
+        <div class="form-group">
+            <label for="quantidadeBase">Calorias</label>
+            <input type="text" required class="form-control" name="calorias" id="calorias" placeholder="Calorias">
+        </div>
+        <div class="form-group">
+            <label for="fibras">Fibras</label>
+            <input type="text" required class="form-control" name="fibras" id="fibras" placeholder="Fibras">
+        </div>
+        <div class="form-group">
+            <label for="ferro">Ferro</label>
+            <input type="text" required class="form-control" name="ferro" id="ferro" placeholder="Ferro">
+        </div>
+        <div class="form-group">
+            <label for="potassio">Potássio</label>
+            <input type="text" required class="form-control" name="potassio" id="potassio" placeholder="Potássio">
+        </div>
+        <div class="form-group">
+            <label for="zinco">Zinco</label>
+            <input type="text" required class="form-control" name="zinco" id="zinco" placeholder="Zinco">
+        </div>
+        <div class="form-group">
+            <label for="carboidratos">Carboidratos</label>
+            <input type="text" required class="form-control" name="carboidratos" id="carboidratos" placeholder="Carboidratos">
+        </div>
+        <div class="form-group">
+            <label for="fosforo">Fósforo</label>
+            <input type="text" required class="form-control" name="fosforo" id="fosforo" placeholder="Fósforo">
+        </div>
+        <div class="form-group">
+            <label for="sodio">Sódio</label>
+            <input type="text" required class="form-control" name="sodio" id="sodio" placeholder="Sódio">
+        </div>
+        <div class="form-group">
+            <label for="proteinas">Proteínas</label>
+            <input type="text" required class="form-control" name="proteinas" id="proteinas" placeholder="Proteínas">
+        </div>
+        <div class="form-group">
+            <label for="lipidios">Lipídios</label>
+            <input type="text" required class="form-control" name="lipidios" id="lipidios" placeholder="Lipídios">
+        </div>
+
+        <button type="submit" class="btn btn-secondary">Adicionar</button>
+    </form>
+
+
+
+</div>
+
+
+@section Scripts{
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+}
