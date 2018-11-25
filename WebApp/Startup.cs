@@ -44,7 +44,7 @@ namespace WebApp
 
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            services.BuildServiceProvider().GetService<AplicacaoDbContext>().Database.Migrate();
+            //services.BuildServiceProvider().GetService<AplicacaoDbContext>().Database.Migrate();
 
             services.AddSwaggerGen(c =>
             {
